@@ -1,0 +1,18 @@
+import jwt from 'jsonwebtoken';
+import { User } from '../Models/User.js'; 
+
+export const Authentication = async (req, res, next) =>{
+    const token = req.header('Auth');
+    if(!token) return res.status(401).json({ message: 'Access denied, Login First' });
+
+    try {
+        const decoded = jwt.verify(token,process.env.Jwt_secret);
+        const id = decoded.userId;
+        let user = await User.findById(id);
+        if(!user) return res.status(401).json({ message: 'User not found' });
+        req.user = user.id;
+        next();
+    } catch (err) {
+        res.status(401).json({ message: 'Token is not valid' });
+    }
+}
