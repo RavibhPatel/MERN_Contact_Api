@@ -6,9 +6,6 @@ import {config} from "dotenv";
 // .env Setup
 config({path: '.env'});
 
-
-config({path: ".env"})
-
 // Register a new user
 export const registerUser = async (req, res) => {
     try {
