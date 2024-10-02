@@ -10,13 +10,9 @@ import cors from "cors"
 
 const app = express();
 const port = 1000;
+
+// Jason Data
 app.use(bodyParser.json());
-
-
-// .env Setup
-config({path: '.env'});
-
-
 
 // Cors
 app.use(cors({
@@ -25,12 +21,12 @@ app.use(cors({
   credentials: true
 }));
 
+// .env Setup
+config({path: '.env'});
 
 // Connect to MongoDB
-mongoose
-  .connect(
-    process.env.MongoUrl,
-    { dbName: "Contact_Apis" }
+mongoose.connect(
+    process.env.MongoUrl, { dbName: "Contact_Apis" }
   )
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
